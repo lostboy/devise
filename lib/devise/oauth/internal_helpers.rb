@@ -112,7 +112,7 @@ module Devise
       # This is the implementation for all OAuth actions.
       def callback_action
         access_token  = oauth_config.access_token_by_code(params[:code], oauth_redirect_uri)
-        self.resource = resource_class.send(oauth_model_callback, access_token, signed_in_resource)
+        self.resource = resource_class.send(oauth_model_callback, access_token, signed_in_resource, warden)
 
         if resource.persisted? && resource.errors.empty?
           set_oauth_flash_message :notice, :success
